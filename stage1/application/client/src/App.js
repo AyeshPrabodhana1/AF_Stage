@@ -19,6 +19,9 @@ import '../node_modules/jquery/dist/jquery.min';
 import '../node_modules/popper.js/dist/popper';
 
 import User from "./components/pages/Users";
+import Roles from "./components/pages/Role";
+import SubmissionTypes from "./components/pages/SubmissionType";
+import Markings from "./components/pages/Marking";
 
 if (localStorage.jwtToken) {
     const token = localStorage.jwtToken;
@@ -45,6 +48,9 @@ class App extends Component {
                             <Switch>
                                 <PrivateRoute exact path="/dashboard" component={Dashboard} />
                                 <PrivateRoute exact path="/users" component={User} />
+                                <PrivateRoute exact path="/roles" component={Roles} />
+                                <PrivateRoute exact path="/submissionTypes" component={SubmissionTypes} />
+                                <PrivateRoute exact path="/marking" component={Markings} />
                             </Switch>
                             <Route exact path="*" component={NotFound} />
                         </Switch>

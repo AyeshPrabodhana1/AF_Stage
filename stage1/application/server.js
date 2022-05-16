@@ -4,6 +4,9 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const passport = require('passport');
 const users = require('./routes/api/users');
+const submissionType = require('./routes/api/submissionType');
+const roles = require('./routes/api/roles');
+const markings = require('./routes/api/marking');
 
 require('./config/passport')(passport);
 
@@ -31,6 +34,9 @@ mongoose.connect(db, { useNewUrlParser: true })
 app.use(passport.initialize());
 
 app.use('/api', users);
+app.use('/api/role', roles);
+app.use('/api/submissionType', submissionType);
+app.use('/api/marking', markings);
 
 app.use(express.static(path.join(__dirname, 'client/build')));
 

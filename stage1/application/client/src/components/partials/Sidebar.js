@@ -20,6 +20,9 @@ class Sidebar extends Component {
                 <div className="list-group list-group-flush">
                     <Link to="/dashboard" className="list-group-item list-group-item-action">Dashboard</Link>
                     <Link to="/users" className="list-group-item list-group-item-action">Users</Link>
+                    <Link to="/roles" className="list-group-item list-group-item-action">Roles</Link>
+                    <Link to="/submissionTypes" className="list-group-item list-group-item-action">Submission Types</Link>
+                    <Link to="/marking" className="list-group-item list-group-item-action">Marking Schemes</Link>
                     <button className="list-group-item list-group-item-action" onClick={this.onLogoutClick}>Logout <FontAwesomeIcon icon={faSignOutAlt} /></button>
                 </div>
             </div>
