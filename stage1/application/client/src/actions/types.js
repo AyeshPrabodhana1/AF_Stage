@@ -11,6 +11,15 @@ export const SET_CURRENT_SUBMISSION_TYPE = "SET_CURRENT_SUBMISSION_TYPE";
 export const USER_ADD = "USER_ADD";
 export const USER_UPDATE = "USER_UPDATE";
 
+export const TOPIC_ADD = "TOPIC_ADD";
+export const TOPIC_UPDATE = "TOPIC_UPDATE";
+
+export const GROUP_ADD = "GROUP_ADD";
+export const GROUP_UPDATE = "GROUP_UPDATE";
+
+export const SUPERVISOR_ADD = "SUPERVISOR_ADD";
+export const SUPERVISOR_UPDATE = "SUPERVISOR_UPDATE";
+
 export const ROLE_ADD = "ROLE_ADD";
 export const ROLE_UPDATE = "ROLE_UPDATE";
 

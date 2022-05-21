@@ -7,6 +7,12 @@ const users = require('./routes/api/users');
 const submissionType = require('./routes/api/submissionType');
 const roles = require('./routes/api/roles');
 const markings = require('./routes/api/marking');
+const student = require('./routes/api/student');
+const group = require('./routes/api/groupReg');
+const topic = require('./routes/api/topic');
+const supervisor = require('./routes/api/supervisor');
+const CoSupervisor = require('./routes/api/coSupervisor');
+
 
 require('./config/passport')(passport);
 
@@ -26,7 +32,7 @@ app.listen(9000);
 
 const db = require('./config/keys').mongoURI;
 
-mongoose.connect(db, { useNewUrlParser: true })
+mongoose.connect(db, { useNewUrlParser: true , useUnifiedTopology: true})
     .then(() =>
         console.log('MongoDB successfully connected.')
     ).catch(err => console.log(err));
@@ -37,6 +43,11 @@ app.use('/api', users);
 app.use('/api/role', roles);
 app.use('/api/submissionType', submissionType);
 app.use('/api/marking', markings);
+app.use('/api/supervisor',supervisor);
+app.use('/api/cosupervisor',CoSupervisor);
+app.use('/api/student',student);
+app.use('/api/topic',topic);
+app.use('/api/groupReg',group);
 
 app.use(express.static(path.join(__dirname, 'client/build')));
 
