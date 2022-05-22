@@ -2,7 +2,7 @@ import React from 'react'
 import classnames from "classnames";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { addGroup } from "../../actions/groupAction";
+import { updateGroup } from "../../actions/groupAction";
 import { withRouter } from "react-router-dom";
 import { toast } from 'react-toastify';
 import $ from 'jquery';
@@ -10,21 +10,32 @@ import axios from "axios";
 
 import 'react-toastify/dist/ReactToastify.css';
 
-class GroupAddModal extends React.Component {
+class GroupUpdateModal extends React.Component {
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
-            groupName: "",
-            student_1: "",
-            student_2: "",
-            student_3: "",
-            student_4: "",
+            id: this.props.record.id,
+            groupName: this.props.record.groupName,
+            student_1: this.props.record.student_1,
+            student_2: this.props.record.student_2,
+            student_3: this.props.record.student_3,
+            student_4: this.props.record.student_4,
             errors: {},
         };
     }
 
     componentWillReceiveProps(nextProps) {
+        if (nextProps.record) {
+            this.setState({
+                id: nextProps.record.id,
+                groupName: nextProps.record.groupName,
+                student_1: nextProps.record.student_1,
+                student_2: nextProps.record.student_2,
+                student_3: nextProps.record.student_3,
+                student_4: nextProps.record.student_4,
+            })
+        }
         if (nextProps.errors) {
             this.setState({
                 errors: nextProps.errors
@@ -33,8 +44,9 @@ class GroupAddModal extends React.Component {
         if (nextProps.auth !== undefined
             && nextProps.auth.user !== undefined
             && nextProps.auth.user.data !== undefined
-            && nextProps.auth.user.data.message !== undefined) {
-            $('#add-group-modal').modal('hide');
+            && nextProps.auth.user.data.message !== undefined
+            && nextProps.auth.user.data.success) {
+            $('#update-group-modal').modal('hide');
             toast(nextProps.auth.user.data.message, {
                 position: toast.POSITION.TOP_CENTER
             });
@@ -42,21 +54,36 @@ class GroupAddModal extends React.Component {
     }
 
     onChange = e => {
-        this.setState({ [e.target.id]: e.target.value });
+        if (e.target.id === 'group-update-name') {
+            this.setState({ groupName: e.target.value });
+        }
+        if (e.target.id === 'group-update-student_1') {
+            this.setState({ student_1: e.target.value });
+        }
+        if (e.target.id === 'group-update-student_2') {
+            this.setState({ student_2: e.target.value });
+        }
+        if (e.target.id === 'group-update-student_3') {
+            this.setState({ student_3: e.target.value });
+        }
+        if (e.target.id === 'group-update-student_4') {
+            this.setState({ student_4: e.target.value });
+        }
+        
     };
 
-    onGroupAdd = e => {
+    onGroupUpdate = e => {
         e.preventDefault();
         const newGroup = {
+            _id: this.state.id,
             groupName: this.state.groupName,
             student_1: this.state.student_1,
             student_2: this.state.student_2,
             student_3: this.state.student_3,
             student_4: this.state.student_4
         };
-        // this.props.addGroup(newGroup, this.props.history);
         axios
-        .post("/api/groupReg/group-add", newGroup)
+        .post("/api/groupReg/group-update", newGroup)
         .then(res => {
             if (res.status === 200) {
                 toast(res.data.message, {
@@ -66,22 +93,26 @@ class GroupAddModal extends React.Component {
             }
         });
     };
-   
-        
 
     render() {
         const { errors } = this.state;
         return (
             <div>
-                <div className="modal fade" id="add-group-modal" data-reset="true">
+                <div className="modal fade" id="update-group-modal">
                     <div className="modal-dialog modal-lg">
                         <div className="modal-content">
                             <div className="modal-header">
-                                <h4 className="modal-title">New Group</h4>
+                                <h4 className="modal-title">Update Role</h4>
                                 <button type="button" className="close" data-dismiss="modal">&times;</button>
                             </div>
                             <div className="modal-body">
-                                <form noValidate onSubmit={this.onGroupAdd} id="add-group">
+                                <form noValidate onSubmit={this.onGroupUpdate} id="update-group">
+                                    <input
+                                        onChange={this.onChange}
+                                        value={this.state.id}
+                                        id="group-update-id"
+                                        type="text"
+                                        className="d-none"/>
                                     <div className="row mt-2">
                                         <div className="col-md-3">
                                             <label htmlFor="name">Group Name</label>
@@ -90,8 +121,8 @@ class GroupAddModal extends React.Component {
                                             <input
                                                 onChange={this.onChange}
                                                 value={this.state.groupName}
-                                                id="groupName"
-                                                type="groupName"
+                                                id="group-update-name"
+                                                type="text"
                                                 error={errors.groupName}
                                                 className={classnames("form-control", {
                                                     invalid: errors.groupName
@@ -101,14 +132,14 @@ class GroupAddModal extends React.Component {
                                     </div>
                                     <div className="row mt-2">
                                         <div className="col-md-3">
-                                            <label htmlFor="email">Member 01</label>
+                                            <label htmlFor="description">Student 01</label>
                                         </div>
                                         <div className="col-md-9">
                                             <input
                                                 onChange={this.onChange}
                                                 value={this.state.student_1}
                                                 error={errors.student_1}
-                                                id="student_1"
+                                                id="group-update-student_1"
                                                 type="student_1"
                                                 className={classnames("form-control", {
                                                     invalid: errors.student_1
@@ -119,14 +150,14 @@ class GroupAddModal extends React.Component {
                                     </div>
                                     <div className="row mt-2">
                                         <div className="col-md-3">
-                                            <label htmlFor="email">Member 02</label>
+                                            <label htmlFor="Student_02">Student 02</label>
                                         </div>
                                         <div className="col-md-9">
                                             <input
                                                 onChange={this.onChange}
                                                 value={this.state.student_2}
                                                 error={errors.student_2}
-                                                id="student_2"
+                                                id="group-update-student_2"
                                                 type="student_2"
                                                 className={classnames("form-control", {
                                                     invalid: errors.student_2
@@ -137,14 +168,14 @@ class GroupAddModal extends React.Component {
                                     </div>
                                     <div className="row mt-2">
                                         <div className="col-md-3">
-                                            <label htmlFor="email">Member 03</label>
+                                            <label htmlFor="student_3">Student 03</label>
                                         </div>
                                         <div className="col-md-9">
                                             <input
                                                 onChange={this.onChange}
                                                 value={this.state.student_3}
                                                 error={errors.student_3}
-                                                id="student_3"
+                                                id="group-update-student_3"
                                                 type="student_3"
                                                 className={classnames("form-control", {
                                                     invalid: errors.student_3
@@ -155,14 +186,14 @@ class GroupAddModal extends React.Component {
                                     </div>
                                     <div className="row mt-2">
                                         <div className="col-md-3">
-                                            <label htmlFor="email">Member 04</label>
+                                            <label htmlFor="description">Student 04</label>
                                         </div>
                                         <div className="col-md-9">
                                             <input
                                                 onChange={this.onChange}
                                                 value={this.state.student_4}
                                                 error={errors.student_4}
-                                                id="student_4"
+                                                id="group-update-student_4"
                                                 type="student_4"
                                                 className={classnames("form-control", {
                                                     invalid: errors.student_4
@@ -176,10 +207,10 @@ class GroupAddModal extends React.Component {
                             <div className="modal-footer">
                                 <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
                                 <button
-                                    form="add-group"
+                                    form="update-group"
                                     type="submit"
                                     className="btn btn-primary">
-                                    Register your group
+                                    Update Group
                                 </button>
                             </div>
                         </div>
@@ -190,8 +221,8 @@ class GroupAddModal extends React.Component {
     }
 }
 
-GroupAddModal.propTypes = {
-
+GroupUpdateModal.propTypes = {
+    updateGroup: PropTypes.func.isRequired,
     auth: PropTypes.object.isRequired,
     errors: PropTypes.object.isRequired
 };
@@ -203,5 +234,5 @@ const mapStateToProps = state => ({
 
 export default connect(
     mapStateToProps,
-    { addGroup }
-)(withRouter(GroupAddModal));
+    { updateGroup }
+)(withRouter(GroupUpdateModal));

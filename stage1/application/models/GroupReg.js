@@ -20,10 +20,6 @@ const GroupSchema = new Schema({
     student_4: {
         type: String,
         required: true
-    },
-    date: {
-        type: Date,
-        default: Date.now
     }
 });
 

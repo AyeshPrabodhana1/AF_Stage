@@ -1,16 +1,16 @@
 import axios from "axios";
 import {
     GET_ERRORS,
-    GROUP_ADD,
-    GROUP_UPDATE
+    COSUPERVISOR_ADD,
+    COSUPERVISOR_UPDATE
 } from "./types";
 
-export const addGroup = (groupData, history) => dispatch => {
+export const addCoSupervisor = (roleData, history) => dispatch => {
     axios
-        .post("/api/groupReg/group-add", groupData)
+        .post("/api/cosupervisor/cosupervisorRequest", roleData)
         .then(res =>
             dispatch({
-                type: GROUP_ADD,
+                type: COSUPERVISOR_ADD,
                 payload: res,
             })
         ).catch(err =>
@@ -22,12 +22,12 @@ export const addGroup = (groupData, history) => dispatch => {
 };
 
 
-export const updateGroup = (groupData) => dispatch => {
+export const updatCoSupervisor = (roleData) => dispatch => {
     axios
-        .post("/api/group-update", groupData)
+        .post("/api/role/role-update", roleData)
         .then(res =>
             dispatch({
-                type: GROUP_UPDATE,
+                type: COSUPERVISOR_UPDATE,
                 payload: res,
             })
         ).catch(err =>

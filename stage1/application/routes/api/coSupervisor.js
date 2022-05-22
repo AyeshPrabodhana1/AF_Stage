@@ -28,4 +28,12 @@ router.post('/cosupervisorRequest', (req, res) => {
     });
 });
 
+router.post('/cosupervisor-data', (req, res) => {
+    CoSupervisor.find({}).then(coSupervisor => {
+        if (coSupervisor) {
+            return res.status(200).send(coSupervisor);
+        }
+    });
+});
+
 module.exports = router;

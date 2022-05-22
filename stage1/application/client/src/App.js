@@ -28,6 +28,7 @@ import Markings from "./components/pages/Marking";
 import Groups from "./components/pages/group";
 import Topics from "./components/pages/Topic";
 import Supervisor from "./components/pages/supervisor";
+import CoSupervisor from "./components/pages/cosupervisor";
 
 if (localStorage.jwtToken) {
     const token = localStorage.jwtToken;
@@ -62,6 +63,7 @@ class App extends Component {
                                 <PrivateRoute exact path="/groups" component={Groups} />
                                 <PrivateRoute exact path="/topic" component={Topics} />
                                 <PrivateRoute exact path="/supervisor" component={Supervisor} />
+                                <PrivateRoute exact path="/coSupervisor" component={CoSupervisor} />
                             </Switch>
                             <Route exact path="*" component={NotFound} />
                         </Switch>

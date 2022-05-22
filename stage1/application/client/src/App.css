@@ -205,5 +205,23 @@ body {
     background-repeat: no-repeat;
     background-size: cover;
     position: relative;
-
   }
+
+  #CoSupervisor_image{
+    background-image: linear-gradient(rgba(0, 0, 0, 0.597), rgba(0, 0, 0, 0.734)), url('../../client/src/images/cosup.jpg');
+    height: 300px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+  }
+  #container{
+      margin-top: 30px;
+  }
+#wrapper{
+    margin: 40px;
+}
+#row_btn{
+    padding-bottom: 20px;
+    margin-left: 5px;
+}

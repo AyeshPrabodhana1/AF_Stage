@@ -2,7 +2,7 @@ import React from 'react'
 import classnames from "classnames";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { addGroup } from "../../actions/groupAction";
+import { addCoSupervisor } from "../../actions/cosupervisorAction";
 import { withRouter } from "react-router-dom";
 import { toast } from 'react-toastify';
 import $ from 'jquery';
@@ -10,16 +10,15 @@ import axios from "axios";
 
 import 'react-toastify/dist/ReactToastify.css';
 
-class GroupAddModal extends React.Component {
+class CoSupervisorAddModal extends React.Component {
 
     constructor() {
         super();
         this.state = {
-            groupName: "",
-            student_1: "",
-            student_2: "",
-            student_3: "",
-            student_4: "",
+            supervisorname: "",
+            groupname: "",
+            topic:"",
+            coSupervisorname:"",
             errors: {},
         };
     }
@@ -34,7 +33,7 @@ class GroupAddModal extends React.Component {
             && nextProps.auth.user !== undefined
             && nextProps.auth.user.data !== undefined
             && nextProps.auth.user.data.message !== undefined) {
-            $('#add-group-modal').modal('hide');
+            $('#add-cosupervisor-modal').modal('hide');
             toast(nextProps.auth.user.data.message, {
                 position: toast.POSITION.TOP_CENTER
             });
@@ -45,18 +44,16 @@ class GroupAddModal extends React.Component {
         this.setState({ [e.target.id]: e.target.value });
     };
 
-    onGroupAdd = e => {
+    onCoSupervisorAdd = e => {
         e.preventDefault();
-        const newGroup = {
-            groupName: this.state.groupName,
-            student_1: this.state.student_1,
-            student_2: this.state.student_2,
-            student_3: this.state.student_3,
-            student_4: this.state.student_4
+        const newCoSupervisor = {
+            supervisorname: this.state.supervisorname,
+            groupname: this.state.groupname,
+            topic: this.state.topic,
+            coSupervisorname:this.state.coSupervisorname
         };
-        // this.props.addGroup(newGroup, this.props.history);
         axios
-        .post("/api/groupReg/group-add", newGroup)
+        .post("/api/cosupervisor/cosupervisorRequest", newCoSupervisor)
         .then(res => {
             if (res.status === 200) {
                 toast(res.data.message, {
@@ -66,109 +63,89 @@ class GroupAddModal extends React.Component {
             }
         });
     };
-   
-        
 
     render() {
         const { errors } = this.state;
         return (
             <div>
-                <div className="modal fade" id="add-group-modal" data-reset="true">
+                <div className="modal fade" id="add-cosupervisor-modal" data-reset="true">
                     <div className="modal-dialog modal-lg">
                         <div className="modal-content">
                             <div className="modal-header">
-                                <h4 className="modal-title">New Group</h4>
+                                <h4 className="modal-title">Add Co-Supervisor</h4>
                                 <button type="button" className="close" data-dismiss="modal">&times;</button>
                             </div>
                             <div className="modal-body">
-                                <form noValidate onSubmit={this.onGroupAdd} id="add-group">
+                                <form noValidate onSubmit={this.onCoSupervisorAdd} id="add-co-supervisor">
                                     <div className="row mt-2">
                                         <div className="col-md-3">
-                                            <label htmlFor="name">Group Name</label>
+                                            <label htmlFor="name">Supervisor Name</label>
                                         </div>
                                         <div className="col-md-9">
                                             <input
                                                 onChange={this.onChange}
-                                                value={this.state.groupName}
-                                                id="groupName"
-                                                type="groupName"
-                                                error={errors.groupName}
+                                                value={this.state.supervisorname}
+                                                id="supervisorname"
+                                                type="supervisorname"
+                                                error={errors.supervisorname}
                                                 className={classnames("form-control", {
-                                                    invalid: errors.groupName
+                                                    invalid: errors.supervisorname
                                                 })}/>
-                                            <span className="text-danger">{errors.groupName}</span>
+                                            <span className="text-danger">{errors.supervisorname}</span>
                                         </div>
                                     </div>
                                     <div className="row mt-2">
                                         <div className="col-md-3">
-                                            <label htmlFor="email">Member 01</label>
+                                            <label htmlFor="description">Group Name</label>
                                         </div>
                                         <div className="col-md-9">
                                             <input
                                                 onChange={this.onChange}
-                                                value={this.state.student_1}
-                                                error={errors.student_1}
-                                                id="student_1"
-                                                type="student_1"
+                                                value={this.state.groupname}
+                                                error={errors.groupname}
+                                                id="groupname"
+                                                type="groupname"
                                                 className={classnames("form-control", {
-                                                    invalid: errors.student_1
+                                                    invalid: errors.groupname
                                                 })}
                                             />
-                                            <span className="text-danger">{errors.student_1}</span>
+                                            <span className="text-danger">{errors.groupname}</span>
                                         </div>
                                     </div>
                                     <div className="row mt-2">
                                         <div className="col-md-3">
-                                            <label htmlFor="email">Member 02</label>
+                                            <label htmlFor="description">Topic</label>
                                         </div>
                                         <div className="col-md-9">
                                             <input
                                                 onChange={this.onChange}
-                                                value={this.state.student_2}
-                                                error={errors.student_2}
-                                                id="student_2"
-                                                type="student_2"
+                                                value={this.state.topic}
+                                                error={errors.topic}
+                                                id="topic"
+                                                type="topic"
                                                 className={classnames("form-control", {
-                                                    invalid: errors.student_2
+                                                    invalid: errors.topic
                                                 })}
                                             />
-                                            <span className="text-danger">{errors.student_2}</span>
+                                            <span className="text-danger">{errors.topic}</span>
                                         </div>
                                     </div>
                                     <div className="row mt-2">
                                         <div className="col-md-3">
-                                            <label htmlFor="email">Member 03</label>
+                                            <label htmlFor="description">Co-Supervisor Name</label>
                                         </div>
                                         <div className="col-md-9">
                                             <input
                                                 onChange={this.onChange}
-                                                value={this.state.student_3}
-                                                error={errors.student_3}
-                                                id="student_3"
-                                                type="student_3"
+                                                value={this.state.coSupervisorname}
+                                                error={errors.coSupervisorname}
+                                                id="coSupervisorname"
+                                                type="coSupervisorname"
                                                 className={classnames("form-control", {
-                                                    invalid: errors.student_3
+                                                    invalid: errors.coSupervisorname
                                                 })}
                                             />
-                                            <span className="text-danger">{errors.student_3}</span>
-                                        </div>
-                                    </div>
-                                    <div className="row mt-2">
-                                        <div className="col-md-3">
-                                            <label htmlFor="email">Member 04</label>
-                                        </div>
-                                        <div className="col-md-9">
-                                            <input
-                                                onChange={this.onChange}
-                                                value={this.state.student_4}
-                                                error={errors.student_4}
-                                                id="student_4"
-                                                type="student_4"
-                                                className={classnames("form-control", {
-                                                    invalid: errors.student_4
-                                                })}
-                                            />
-                                            <span className="text-danger">{errors.student_4}</span>
+                                            <span className="text-danger">{errors.coSupervisorname}</span>
                                         </div>
                                     </div>
                                 </form>
@@ -176,10 +153,10 @@ class GroupAddModal extends React.Component {
                             <div className="modal-footer">
                                 <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
                                 <button
-                                    form="add-group"
+                                    form="add-co-supervisor"
                                     type="submit"
                                     className="btn btn-primary">
-                                    Register your group
+                                    Add Co-Supervisor
                                 </button>
                             </div>
                         </div>
@@ -190,8 +167,8 @@ class GroupAddModal extends React.Component {
     }
 }
 
-GroupAddModal.propTypes = {
-
+CoSupervisorAddModal.propTypes = {
+    addCoSupervisor: PropTypes.func.isRequired,
     auth: PropTypes.object.isRequired,
     errors: PropTypes.object.isRequired
 };
@@ -203,5 +180,5 @@ const mapStateToProps = state => ({
 
 export default connect(
     mapStateToProps,
-    { addGroup }
-)(withRouter(GroupAddModal));
+    { addCoSupervisor }
+)(withRouter(CoSupervisorAddModal));

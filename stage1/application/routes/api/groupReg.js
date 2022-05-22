@@ -4,7 +4,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const keys = require('../../config/keys');
 const validateGroupRegisterInput = require('../../validation/groupRegister');
-const Group = require('../../models/GroupReg');
+const Group = require('../../models/groupReg');
 
 router.post('/group-add', (req, res) => {
     const { errors, isValid } = validateGroupRegisterInput(req.body);
@@ -66,7 +66,7 @@ router.post('/group-update', (req, res) => {
     Group.findOne({ _id }).then(group => {
         if (group) {
             let update = { 'groupName': req.body.groupName, 'student_1': req.body.student_1,'student_2':req.body.student_2,'student_3':req.body.student_3,'student_4':req.body.student_4};
-            Group.update({ _id: _id }, { $set: update }, function (err, result) {
+            Group.updateOne({ _id: _id }, { $set: update }, function (err, result) {
                 if (err) {
                     return res.status(400).json({ message: 'Unable to update role.' });
                 } else {

@@ -71,8 +71,8 @@ class Topics extends Component {
             filename: "Topics",
             no_data_text: 'No Topics found!',
             button: {
-                excel: true,
-                print: true,
+                // excel: true,
+                // print: true,
                 csv: true
             },
             language: {
@@ -160,7 +160,9 @@ class Topics extends Component {
                     {/* <RoleUpdateModal record={this.state.currentRecord} /> */}
                     <div id="page-content-wrapper">
                         <div className="container-fluid">
+                            <div className="row" id="row_btn">
                             <button className="btn btn-outline-primary float-right mt-3 mr-2" data-toggle="modal" data-target="#add-topic-modal"><FontAwesomeIcon icon={faPlus} /> Register Your Topic</button>
+                            </div>
                             <ReactDatatable
                                 config={this.config}
                                 records={this.state.records}

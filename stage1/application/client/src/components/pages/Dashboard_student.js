@@ -105,7 +105,7 @@ class DashboardStudent extends Component {
                               co-supervisor.
                         </p>
                         <br />
-                        <Link to="/users" className="btn btn-primary" id="co_supervisor">Invite Your Co-Supervisor</Link>
+                        <Link to="/coSupervisor" className="btn btn-primary" id="co_supervisor">Invite Your Co-Supervisor</Link>
                     </div>
 
                 </div>

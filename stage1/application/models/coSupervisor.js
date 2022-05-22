@@ -32,4 +32,4 @@ coSupervisorSchema.set('toJSON', {
     virtuals: true
 });
 
-module.exports = CoSupervisor = mongoose.model("supervisorschema", coSupervisorSchema);
+module.exports = CoSupervisor = mongoose.model("cosupervisorschema", coSupervisorSchema);

@@ -7,6 +7,7 @@ import {connect} from "react-redux";
 import axios from "axios";
 import {faPlus} from "@fortawesome/free-solid-svg-icons";
 import GroupAddModal from "../partials/GroupAddModel";
+import GroupUpdateModal from "../partials/GroupUpdateModel";
 // import UserUpdateModal from "../partials/UserUpdateModal";
 import { toast, ToastContainer} from "react-toastify";
 
@@ -70,7 +71,7 @@ class Groups extends Component {
                         <Fragment>
                             <button
                                 data-toggle="modal"
-                                data-target="#update-user-modal"
+                                data-target="#update-group-modal"
                                 className="btn btn-primary btn-sm"
                                 onClick={() => this.editRecord(record)}
                                 style={{marginRight: '5px'}}>
@@ -92,11 +93,11 @@ class Groups extends Component {
             length_menu: [ 10, 20, 50 ],
             filename: "Users",
             no_data_text: 'No Any Groups found..!',
-            // button: {
+            button: {
             //     excel: true,
             //     print: true,
-            //     csv: true
-            // },
+                csv: true
+            },
             language: {
                 length_menu: "Show _MENU_ result per page",
                 filter: "Filter in records...",
@@ -155,7 +156,7 @@ class Groups extends Component {
 
     deleteRecord(record) {
         axios
-            .post("/api/user-delete", {_id: record._id})
+            .post("/api/groupReg/group-delete", {_id: record._id})
             .then(res => {
                 if (res.status === 200) {
                    toast(res.data.message, {
@@ -182,10 +183,12 @@ class Groups extends Component {
                 </div>
                 <div className="d-flex" id="wrapper">
                     <GroupAddModal/>
-                    {/* <UserUpdateModal record={this.state.currentRecord}/> */}
+                    <GroupUpdateModal record={this.state.currentRecord}/>
                     <div id="page-content-wrapper">
                         <div className="container-fluid">
-                            <button className="btn btn-outline-primary float-right mt-3 mr-2" data-toggle="modal" data-target="#add-group-modal"><FontAwesomeIcon icon={faPlus}/> REGISTER OUR GROUP</button>
+                            <div className="row" id="row_btn">
+                            <button className="btn btn-outline-primary float-right mt-3 mr-2" data-toggle="modal" data-target="#add-group-modal" id="btn_under"><FontAwesomeIcon icon={faPlus}/> REGISTER OUR GROUP</button>
+                            </div>
                             <ReactDatatable
                                 // config={this.config}
                                 records={this.state.records}

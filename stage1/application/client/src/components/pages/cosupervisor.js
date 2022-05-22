@@ -3,7 +3,7 @@ import Navbar from "../partials/Navbar";
 import ReactDatatable from '@ashvin27/react-datatable';
 import PropTypes from "prop-types";
 import axios from "axios";
-import SupervisorAddModal from "../partials/supervisorAddModel";
+import CoSupervisorAddModal from "../partials/cosupervisorAddModel";
 // import RoleUpdateModal from "../partials/RoleUpdateModal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faList } from "@fortawesome/free-solid-svg-icons/faList";
@@ -11,7 +11,7 @@ import { connect } from "react-redux";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { toast, ToastContainer } from "react-toastify";
 
-class Supervisor extends Component {
+class CoSupervisor extends Component {
 
     constructor(props) {
         super(props);
@@ -42,6 +42,13 @@ class Supervisor extends Component {
                 key: "topic",
                 text: "Topic",
                 className: "topic",
+                align: "left",
+                sortable: true
+            },
+            {
+                key: "coSupervisorname",
+                text: "co-Supervisorname",
+                className: "coSupervisorname",
                 align: "left",
                 sortable: true
             },
@@ -110,7 +117,8 @@ class Supervisor extends Component {
                 id: '',
                 supervisorname: '',
                 groupname: '',
-                topic:''
+                topic:'',
+                coSupervisorname:''
                 
             }
         };
@@ -128,7 +136,7 @@ class Supervisor extends Component {
 
     getData() {
         axios
-            .post("/api/supervisor/supervisor-data")
+            .post("/api/cosupervisor/cosupervisor-data")
             .then(res => {
                 this.setState({ records: res.data })
             })
@@ -161,19 +169,19 @@ class Supervisor extends Component {
         return (
             <div>
                 <Navbar />
-                <div className="hero-image" id="Supervisor_image">
+                <div className="hero-image" id="CoSupervisor_image">
                     <div className="hero-text" id="text_group">
-                        <p>Invite Your Supervisor</p>
+                        <p>Invite Your Co-upervisor</p>
                     </div>
                 </div>
                 <div className="d-flex" id="wrapper">
-                    <SupervisorAddModal />
+                    <CoSupervisorAddModal />
                     {/* <RoleUpdateModal record={this.state.currentRecord} /> */}
                     <div id="page-content-wrapper">
                         <div className="container-fluid">
-                        <div className="row" id="row_btn">
-                            <button className="btn btn-outline-primary float-right mt-3 mr-2" data-toggle="modal" data-target="#add-supervisor-modal"><FontAwesomeIcon icon={faPlus} />Invite Supervisor</button>
-                        </div>    
+                            <div className="row" id="row_btn">
+                            <button className="btn btn-outline-primary float-right mt-3 mr-2" data-toggle="modal" data-target="#add-cosupervisor-modal"><FontAwesomeIcon icon={faPlus} />Invite Co-Supervisor</button>
+                            </div>
                             <ReactDatatable
                                 config={this.config}
                                 records={this.state.records}
@@ -184,14 +192,14 @@ class Supervisor extends Component {
                     </div>
                     <ToastContainer />
                 </div>
-               
+                
             </div>
         );
     }
 
 }
 
-Supervisor.propTypes = {
+CoSupervisor.propTypes = {
     auth: PropTypes.object.isRequired,
 };
 
@@ -202,4 +210,4 @@ const mapStateToProps = state => ({
 
 export default connect(
     mapStateToProps
-)(Supervisor);
+)(CoSupervisor);
