@@ -24,6 +24,7 @@ import User from "./components/pages/Users";
 import Roles from "./components/pages/Role";
 import SubmissionTypes from "./components/pages/SubmissionType";
 import Markings from "./components/pages/Marking";
+import Home from "./components/pages/Home";
 
 import Groups from "./components/pages/group";
 import Topics from "./components/pages/Topic";
@@ -49,10 +50,11 @@ class App extends Component {
                 <Router>
                     <div className="App">
                         <Switch>
-                            <Route exact path="/" component={Login} />
+                            <Route exact path="/" component={Home} />
                             <Route exact path="/register" component={Register} />
                             <Route exact path="/login" component={Login} />
                             <Route exact path="/login_student" component={StudentLogin} />
+                            {/* <Route exact path="/home" component={Home} /> */}
                             <Switch>
                                 <PrivateRoute exact path="/dashboard" component={Dashboard} />
                                 <PrivateRoute exact path="/dashboardStudent" component={DashboardStudent} />
