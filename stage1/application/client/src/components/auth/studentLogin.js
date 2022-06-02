@@ -48,9 +48,12 @@ class Login extends Component {
     render() {
         const { errors } = this.state;
         return (
-            <div className="container">
-                <div className="row mt-5">
-                    <div className="col-md-4 mx-auto mt-5 card shadow-lg">
+            <div className="container-fluid" id="student_login_image">
+                <div className="row">
+                <div className="col-md-5 mt-5 ml-5 card-transparent" id="card_studentLogin_1">
+                        
+                    </div>
+                    <div className="col-md-5 mt-5 card-transparent " id="card_studentLogin">
                         <div className="card-body p-1">
                             <h2 className="text-center text-primary mt-3">Student Login</h2>
                             <form noValidate onSubmit={this.onSubmit} className="white">
@@ -108,3 +111,4 @@ export default connect(
     mapStateToProps,
     { loginStudent }
 )(Login);
+
