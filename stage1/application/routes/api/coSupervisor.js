@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const validateCoSupervisorRequest = require('../../validation/cosupervisor');
 const CoSupervisor = require('../../models/coSupervisor');
+const cosupervisor = require('../../validation/cosupervisor');
+const coSupervisor = require('../../models/coSupervisor');
 
 
 router.post('/cosupervisorRequest', (req, res) => {
@@ -32,6 +34,36 @@ router.post('/cosupervisor-data', (req, res) => {
     CoSupervisor.find({}).then(coSupervisor => {
         if (coSupervisor) {
             return res.status(200).send(coSupervisor);
+        }
+    });
+});
+
+router.post('/cosupervisor-delete', (req,res) => {
+    CoSupervisor.deleteOne({_id: req.body._id}).then(coSupervisor => {
+        if (coSupervisor) {
+        return res.status(200).send(coSupervisor);
+        }
+    });
+});
+
+router.post('/cosupervisor-update', (req, res) => {
+    const { errors, isValid } = validateCoSupervisorRequest(req.body);
+    if (!isValid) {
+        return res.status(400).json(errors);
+    }
+    const _id = req.body._id;
+    CoSupervisor.findOne({ _id }).then(coSupervisor => {
+        if (coSupervisor) {
+            let update = { 'supervisorname': req.body.supervisorname, 'groupname': req.body.groupname, 'topic': req.body.topic, 'coSupervisorname': req.body.coSupervisorname };
+            CoSupervisor.updateOne({ _id: _id }, { $set: update }, function (err, result) {
+                if (err) {
+                    return res.status(400).json({ message: 'Unable to update coSupervisor.' });
+                } else {
+                    return res.status(200).json({ message: 'coSupervisor updated successfully. Refreshing data...', success: true });
+                }
+            });
+        } else {
+            return res.status(400).json({ message: 'Now coSupervisor found to update.' });
         }
     });
 });

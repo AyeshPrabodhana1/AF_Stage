@@ -49,7 +49,7 @@ router.post('/group-id-data', (req, res) => {
 });
 
 router.post('/group-delete', (req, res) => {
-    Group.deleteOne({ groupName: req.body.groupName}).then(group => {
+    Group.deleteOne({ _id: req.body._id}).then(group => {
         if (group) {
             return res.status(200).json({message: 'User deleted successfully. Refreshing data...', success: true})
         }

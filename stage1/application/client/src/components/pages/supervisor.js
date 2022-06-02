@@ -4,7 +4,7 @@ import ReactDatatable from '@ashvin27/react-datatable';
 import PropTypes from "prop-types";
 import axios from "axios";
 import SupervisorAddModal from "../partials/supervisorAddModel";
-// import RoleUpdateModal from "../partials/RoleUpdateModal";
+import SupervisorUpdateModal from "../partials/supervisorUpdateModal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faList } from "@fortawesome/free-solid-svg-icons/faList";
 import { connect } from "react-redux";
@@ -17,13 +17,13 @@ class Supervisor extends Component {
         super(props);
 
         this.columns = [
-            {
-                key: "_id",
-                text: "Id",
-                className: "id",
-                align: "left",
-                sortable: true,
-            },
+            // {
+            //     key: "_id",
+            //     text: "Id",
+            //     className: "id",
+            //     align: "left",
+            //     sortable: true,
+            // },
             {
                 key: "supervisorname",
                 text: "Supervisor",
@@ -57,7 +57,7 @@ class Supervisor extends Component {
                         <Fragment>
                             <button
                                 data-toggle="modal"
-                                data-target="#update-role-modal"
+                                data-target="#update-supervisor-modal"
                                 className="btn btn-primary btn-sm"
                                 onClick={() => this.editRecord(record)}
                                 style={{ marginRight: '5px' }}>
@@ -141,7 +141,7 @@ class Supervisor extends Component {
 
     deleteRecord(record) {
         axios
-            .post("/api/role/role-delete", { _id: record._id })
+            .post("/api/supervisor/supervisor-delete", { _id: record._id })
             .then(res => {
                 if (res.status === 200) {
                     toast(res.data.message, {
@@ -168,7 +168,7 @@ class Supervisor extends Component {
                 </div>
                 <div className="d-flex" id="wrapper">
                     <SupervisorAddModal />
-                    {/* <RoleUpdateModal record={this.state.currentRecord} /> */}
+                    <SupervisorUpdateModal record={this.state.currentRecord} />
                     <div id="page-content-wrapper">
                         <div className="container-fluid">
                         <div className="row" id="row_btn">

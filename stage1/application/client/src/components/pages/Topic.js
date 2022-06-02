@@ -4,6 +4,7 @@ import ReactDatatable from '@ashvin27/react-datatable';
 import PropTypes from "prop-types";
 import axios from "axios";
 import TopicAddModal from "../partials/TopicAddModel";
+import TopicModalUpdate from "../partials/TopicUpdateModal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { connect } from "react-redux";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
@@ -15,13 +16,13 @@ class Topics extends Component {
         super(props);
 
         this.columns = [
-            {
-                key: "_id",
-                text: "Id",
-                className: "id",
-                align: "left",
-                sortable: true,
-            },
+            // {
+            //     key: "_id",
+            //     text: "Id",
+            //     className: "id",
+            //     align: "left",
+            //     sortable: true,
+            // },
             {
                 key: "topicName",
                 text: "Topic",
@@ -48,7 +49,7 @@ class Topics extends Component {
                         <Fragment>
                             <button
                                 data-toggle="modal"
-                                data-target="#update-role-modal"
+                                data-target="#update-topic-modal"
                                 className="btn btn-primary btn-sm"
                                 onClick={() => this.editRecord(record)}
                                 style={{ marginRight: '5px' }}>
@@ -130,7 +131,7 @@ class Topics extends Component {
 
     deleteRecord(record) {
         axios
-            .post("/api/role/role-delete", { _id: record._id })
+            .post("/api/topic/topic-delete", { _id: record._id })
             .then(res => {
                 if (res.status === 200) {
                     toast(res.data.message, {
@@ -157,7 +158,7 @@ class Topics extends Component {
                 </div>
                 <div className="d-flex" id="wrapper">
                     <TopicAddModal />
-                    {/* <RoleUpdateModal record={this.state.currentRecord} /> */}
+                    <TopicModalUpdate record={this.state.currentRecord} />
                     <div id="page-content-wrapper">
                         <div className="container-fluid">
                             <div className="row" id="row_btn">

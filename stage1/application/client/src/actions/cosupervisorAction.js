@@ -24,7 +24,7 @@ export const addCoSupervisor = (roleData, history) => dispatch => {
 
 export const updatCoSupervisor = (roleData) => dispatch => {
     axios
-        .post("/api/role/role-update", roleData)
+        .post("/api/cosupervisor/cosupervisor-update", roleData)
         .then(res =>
             dispatch({
                 type: COSUPERVISOR_UPDATE,

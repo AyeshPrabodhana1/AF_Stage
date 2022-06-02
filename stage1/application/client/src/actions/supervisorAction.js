@@ -22,9 +22,9 @@ export const addSupervisor = (roleData, history) => dispatch => {
 };
 
 
-export const updateRole = (roleData) => dispatch => {
+export const updateSupervisor = (roleData) => dispatch => {
     axios
-        .post("/api/role/role-update", roleData)
+        .post("/api/supervisor/supervisor-update", roleData)
         .then(res =>
             dispatch({
                 type: SUPERVISOR_UPDATE,

@@ -10,6 +10,7 @@ import GroupAddModal from "../partials/GroupAddModel";
 import GroupUpdateModal from "../partials/GroupUpdateModel";
 // import UserUpdateModal from "../partials/UserUpdateModal";
 import { toast, ToastContainer} from "react-toastify";
+import { faList } from "@fortawesome/free-solid-svg-icons/faList";
 
 class Groups extends Component {
 
@@ -17,13 +18,13 @@ class Groups extends Component {
         super(props);
 
         this.columns = [
-            {
-                key: "_id",
-                text: "Id",
-                className: "id",
-                align: "left",
-                sortable: true,
-            },
+            // {
+            //     key: "_id",
+            //     text: "Id",
+            //     className: "id",
+            //     align: "left",
+            //     sortable: true,
+            // },
             {
                 key: "groupName",
                 text: "Group Name",

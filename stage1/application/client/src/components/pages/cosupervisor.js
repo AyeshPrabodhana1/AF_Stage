@@ -4,7 +4,7 @@ import ReactDatatable from '@ashvin27/react-datatable';
 import PropTypes from "prop-types";
 import axios from "axios";
 import CoSupervisorAddModal from "../partials/cosupervisorAddModel";
-// import RoleUpdateModal from "../partials/RoleUpdateModal";
+import CoSupervisorUpdateModal from "../partials/cosupervisorUpdateModal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faList } from "@fortawesome/free-solid-svg-icons/faList";
 import { connect } from "react-redux";
@@ -17,13 +17,13 @@ class CoSupervisor extends Component {
         super(props);
 
         this.columns = [
-            {
-                key: "_id",
-                text: "Id",
-                className: "id",
-                align: "left",
-                sortable: true,
-            },
+            // {
+            //     key: "_id",
+            //     text: "Id",
+            //     className: "id",
+            //     align: "left",
+            //     sortable: true,
+            // },
             {
                 key: "supervisorname",
                 text: "Supervisor",
@@ -47,7 +47,7 @@ class CoSupervisor extends Component {
             },
             {
                 key: "coSupervisorname",
-                text: "co-Supervisorname",
+                text: "Co-Supervisor Name",
                 className: "coSupervisorname",
                 align: "left",
                 sortable: true
@@ -64,7 +64,7 @@ class CoSupervisor extends Component {
                         <Fragment>
                             <button
                                 data-toggle="modal"
-                                data-target="#update-role-modal"
+                                data-target="#update-cosupervisor-modal"
                                 className="btn btn-primary btn-sm"
                                 onClick={() => this.editRecord(record)}
                                 style={{ marginRight: '5px' }}>
@@ -149,7 +149,7 @@ class CoSupervisor extends Component {
 
     deleteRecord(record) {
         axios
-            .post("/api/role/role-delete", { _id: record._id })
+            .post("/api/cosupervisor/cosupervisor-delete", { _id: record._id })
             .then(res => {
                 if (res.status === 200) {
                     toast(res.data.message, {
@@ -171,12 +171,12 @@ class CoSupervisor extends Component {
                 <Navbar />
                 <div className="hero-image" id="CoSupervisor_image">
                     <div className="hero-text" id="text_group">
-                        <p>Invite Your Co-upervisor</p>
+                        <p>Invite Your Co-supervisor</p>
                     </div>
                 </div>
                 <div className="d-flex" id="wrapper">
                     <CoSupervisorAddModal />
-                    {/* <RoleUpdateModal record={this.state.currentRecord} /> */}
+                    <CoSupervisorUpdateModal record={this.state.currentRecord} />
                     <div id="page-content-wrapper">
                         <div className="container-fluid">
                             <div className="row" id="row_btn">
